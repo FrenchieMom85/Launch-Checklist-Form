@@ -1,4 +1,24 @@
 window.addEventListener("load", function () {
+
+   fetch("https://handlers.education.launchcode.org/static/planets.json").then(function (response) {
+      response.json().then(function (json) {
+         const mission = document.getElementById("missionTarget");
+
+         let index = Math.floor(Math.random() * json.length)
+         let div = `
+         <h2>Mission Destination</h2>
+         <ol>
+            <li>Name: ${json[index].name}</li>
+            <li>Diameter: ${json[index].diameter}</li>
+            <li>Star: ${json[index].star}</li>
+            <li>Distance from Earth: ${json[index].distance}</li>
+            <li>Number of Moons: ${json[index].moons}</li>
+         </ol>
+         <img src="${json[index].image}"></img>
+         `
+         mission.innerHTML = div
+      });
+   });
    let form = document.querySelector("form");
    form.addEventListener("submit", function (event) {
       const pilotInput = document.querySelector("input[name=pilotName]");
@@ -31,39 +51,36 @@ window.addEventListener("load", function () {
       let cargoStatus = document.getElementById("cargoStatus")
       let launch = document.getElementById("launchStatus")
 
-      pilot.innerHTML = `Pilot ${pilotInput} Ready`
-      copilot.innerHTML = `Co-pilot ${copilotInput.value} Ready`
 
-      console.log(pilot.innerHTML)
-
-      if (fuelInput.value < 10000){
+      if (fuelInput.value < 10000) {
          faultList.style.visibility = "visible";
-         launch.innerHTML = "Shuttle not ready for launch" 
-         
+         launch.innerHTML = "Shuttle not ready for launch";
+         launch.style.color = "red";
+         pilot.innerHTML = `Pilot ${pilotInput.value} Ready`;
+         copilot.innerHTML = `Co-pilot ${copilotInput.value} Ready`;
+         fuelStatus.innerHTML = `There is not enough fuel for this journey`
+         event.preventDefault();
       }
-      // let div = `
-      //       <div  id="faultyItems">
-      //           <ol>
-      //               <li id="pilotStatus">Pilot ${pilotInput.value} Ready</li>
-      //               <li id="copilotStatus">Co-pilot ${copilotInput.value} Ready</li>
-      //               <li id="fuelStatus">Fuel level high enough for launch</li>
-      //               <li id="cargoStatus">Cargo mass low enough for launch</li>
-      //           </ol>
-      //       </div> `
-
-      // faultList.innerHTML += div
+      if (cargoInput.value > 10000) {
+         faultList.style.visibility = "visible";
+         launch.innerHTML = "Shuttle not ready for launch";
+         launch.style.color = "red";
+         pilot.innerHTML = `Pilot ${pilotInput.value} Ready`;
+         copilot.innerHTML = `Co-pilot ${copilotInput.value} Ready`;
+         cargoStatus.innerHTML = `There is too much mass for the shuttle to take off`
+         event.preventDefault();
+      }
+      if (fuelInput.value > 10000 && cargoInput.value < 10000) {
+         faultList.style.visibility = "visible";
+         launch.innerHTML = "Shuttle is ready for launch";
+         launch.style.color = "green";
+         pilot.innerHTML = `Pilot ${pilotInput.value} Ready`;
+         copilot.innerHTML = `Co-pilot ${copilotInput.value} Ready`;
+         event.preventDefault();
+      }
 
    });
 });
 
-/* This block of code shows how to format the HTML once you fetch some planetary JSON!
-<h2>Mission Destination</h2>
-         <ol>
-            <li>Name: ${}</li>
-            <li>Diameter: ${}</li>
-            <li>Star: ${}</li>
-            <li>Distance from Earth: ${}</li>
-            <li>Number of Moons: ${}</li>
-         </ol>
-         <img src="${}">
-            */
+
+
