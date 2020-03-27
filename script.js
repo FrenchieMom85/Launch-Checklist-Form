@@ -60,7 +60,10 @@ window.addEventListener("load", function () {
          copilot.innerHTML = `Co-pilot ${copilotInput.value} Ready`;
          fuelStatus.innerHTML = `There is not enough fuel for this journey`
          event.preventDefault();
+      } else {
+         fuelStatus.innerHTML = `Fuel level high enough for launch`
       }
+
       if (cargoInput.value > 10000) {
          faultList.style.visibility = "visible";
          launch.innerHTML = "Shuttle not ready for launch";
@@ -69,7 +72,10 @@ window.addEventListener("load", function () {
          copilot.innerHTML = `Co-pilot ${copilotInput.value} Ready`;
          cargoStatus.innerHTML = `There is too much mass for the shuttle to take off`
          event.preventDefault();
+      } else {
+         cargoStatus.innerHTML = `Cargo mass low enough for launch`
       }
+
       if (fuelInput.value > 10000 && cargoInput.value < 10000) {
          faultList.style.visibility = "visible";
          launch.innerHTML = "Shuttle is ready for launch";
