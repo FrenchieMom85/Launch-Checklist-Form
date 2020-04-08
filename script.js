@@ -44,34 +44,36 @@ window.addEventListener("load", function () {
       } else if (isNaN(pilotInput.value) == false || isNaN(copilotInput.value) == false) {
          alert("Please enter alphabet characters only!")
          event.preventDefault();
-      } else if (fuelInput.value < 10000) {
-         faultList.style.visibility = "visible";
-         launch.innerHTML = "Shuttle not ready for launch";
-         launch.style.color = "red";
-         pilot.innerHTML = `Pilot ${pilotInput.value} Ready`;
-         copilot.innerHTML = `Co-pilot ${copilotInput.value} Ready`;
-         fuelStatus.innerHTML = `There is not enough fuel for this journey`
-         event.preventDefault();
-      } else if (cargoInput.value > 10000) {
-         faultList.style.visibility = "visible";
-         launch.innerHTML = "Shuttle not ready for launch";
-         launch.style.color = "red";
-         pilot.innerHTML = `Pilot ${pilotInput.value} Ready`;
-         copilot.innerHTML = `Co-pilot ${copilotInput.value} Ready`;
-         cargoStatus.innerHTML = `There is too much mass for the shuttle to take off`
-         event.preventDefault();
-      } else if (fuelInput.value > 10000 && cargoInput.value < 10000) {
-         faultList.style.visibility = "visible";
-         launch.innerHTML = "Shuttle is ready for launch";
-         launch.style.color = "green";
-         pilot.innerHTML = `Pilot ${pilotInput.value} Ready`;
-         copilot.innerHTML = `Co-pilot ${copilotInput.value} Ready`;
-         fuelStatus.innerHTML = `Fuel level high enough for launch`
-         cargoStatus.innerHTML = `Cargo mass low enough for launch`
-         event.preventDefault();
-      }   
+      } else {
+         if (fuelInput.value < 10000) {
+            faultList.style.visibility = "visible";
+            launch.innerHTML = "Shuttle not ready for launch";
+            launch.style.color = "red";
+            pilot.innerHTML = `Pilot ${pilotInput.value} Ready`;
+            copilot.innerHTML = `Co-pilot ${copilotInput.value} Ready`;
+            fuelStatus.innerHTML = `There is not enough fuel for this journey`
+            event.preventDefault();
+         } if (cargoInput.value > 10000) {
+            faultList.style.visibility = "visible";
+            launch.innerHTML = "Shuttle not ready for launch";
+            launch.style.color = "red";
+            pilot.innerHTML = `Pilot ${pilotInput.value} Ready`;
+            copilot.innerHTML = `Co-pilot ${copilotInput.value} Ready`;
+            cargoStatus.innerHTML = `There is too much mass for the shuttle to take off`
+            event.preventDefault();
+         } if (fuelInput.value > 10000 && cargoInput.value < 10000) {
+            faultList.style.visibility = "visible";
+            launch.innerHTML = "Shuttle is ready for launch";
+            launch.style.color = "green";
+            pilot.innerHTML = `Pilot ${pilotInput.value} Ready`;
+            copilot.innerHTML = `Co-pilot ${copilotInput.value} Ready`;
+            fuelStatus.innerHTML = `Fuel level high enough for launch`
+            cargoStatus.innerHTML = `Cargo mass low enough for launch`
+            event.preventDefault();
+         }
+      }
 
-      });
+   });
 });
 
 
